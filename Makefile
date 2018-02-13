@@ -1,6 +1,7 @@
 NAME=libftprintf.a
 
-SRC_NAME=printf.c
+CONV_NAME=undefined.c # s.c
+SRC_NAME=printf.c $(addprefix conv/, $(CONV_NAME))
 SRC=$(addprefix src/, $(SRC_NAME))
 OBJ=$(patsubst src/%.c, obj/%.o, $(SRC))
 
