@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:25:03 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 13:57:37 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 14:31:24 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,22 @@ typedef struct	s_conv_fn {
 }				t_conv_fn;
 
 char			*conv_s(va_list *ap, t_flags flags);
+char			*conv_x(va_list *ap, t_flags flags);
 char			*conv_upper_s(va_list *ap, t_flags flags);
 char			*conv_upper_u(va_list *ap, t_flags flags);
+char			*conv_upper_x(va_list *ap, t_flags flags);
 
 char			*undefined_conv(char c);
 
+typedef struct	s_base {
+	char	*base;
+	size_t	len;
+}				t_base;
+
+size_t			ft_itoa_len_base(unsigned int val, int base);
+void			ft_itoa_base(unsigned int val, char *buf, char *base);
+size_t			ft_litoa_len_base(unsigned long int val, int base);
+void			ft_litoa_base(unsigned long int val, char *buf, char *base);
 
 char			*ft_strnew(size_t len);
 size_t			ft_strlen(const char *s);

@@ -1,6 +1,7 @@
 NAME=libftprintf.a
 
-CONV_NAME=undefined.c s.c upper_s.c upper_u.c
+CONV_NAME=undefined.c s.c upper_s.c upper_u.c\
+		  i_base.c li_base.c upper_x.c x.c
 BUF_NAME=new.c del.c realloc.c putc.c putstr.c
 FT_NAME=ft_memalloc.c ft_memcpy.c ft_strlen.c\
 		ft_strncpy.c ft_memset.c ft_strncpy.c\
