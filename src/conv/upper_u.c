@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 12:37:26 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 13:39:57 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 14:00:37 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,44 +27,45 @@ static size_t	ft_ulitoa_len(unsigned long int val)
 	return (len);
 }
 
-static void		ft_ulitoa_rec(char *buf, unsigned long int val, size_t idx)
+static void		ft_ulitoa_rec(char *buf, unsigned long int val, size_t *idx)
 {
 	if (val == 0)
 		return ;
-	buf[idx] = val % 10 + '0';
-	ft_ulitoa_rec(buf, val / 10, idx - 1);
+	if (val >= 10)
+		ft_ulitoa_rec(buf, val / 10, idx);
+	buf[*idx] = val % 10 + '0';
+	(*idx)++;
 }
 
-static char		*ft_ulitoa(unsigned long int val, size_t len, char fill_with)
+static void		ft_ulitoa(unsigned long int val, char *buf)
 {
-	char	*res;
+	size_t		idx;
 
-	if ((res = ft_strnew(len)) == 0)
-		return (0);
-	ft_memset(res, fill_with, len);
-	ft_ulitoa_rec(res, val, len - 1);
-	return (res);
+	idx = 0;
+	ft_ulitoa_rec(buf, val, &idx);
 }
 
 char			*conv_upper_u(va_list *ap, t_flags flags)
 {
 	unsigned long int	val;
 	size_t				len;
-	char				*tmp;
+	char				*res;
 
 	val = va_arg(*ap, unsigned long int);
 	len = ft_ulitoa_len(val);
-	if (flags.precision >= 0 && (int)len < flags.precision)
-		return (ft_ulitoa(val, flags.precision, '0'));
-	if (flags.width >= 0 && (int)len < flags.width)
+	if ((res = ft_strnew(len)) == 0)
+		return (0);
+	ft_ulitoa(val, res);
+	if (flags.precision >= 0 && flags.precision > (int)len)
+		padding_left(&res, (size_t)flags.precision - len, '0');
+	else if (flags.width >= 0 && flags.width > (int)len)
 	{
 		if (flags.neg_field)
-			return (ft_ulitoa(val, flags.width, ' '));
-		if (flags.zero_pad && !flags.neg_field)
-			return (ft_ulitoa(val, flags.width, '0'));
-		if (!flags.zero_pad)
-			return (ft_ulitoa(val, flags.width, ' '));
-		return (ft_ulitoa(val, flags.width, ' '));
+			padding_right(&res, (size_t)flags.width - len, ' ');
+		else if (flags.zero_pad)
+			padding_left(&res, (size_t)flags.width - len, '0');
+		else
+			padding_left(&res, (size_t)flags.width - len, ' ');
 	}
-	return (ft_ulitoa(val, len, 0));
+	return (res);
 }

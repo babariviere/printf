@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:25:03 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 13:18:11 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 13:57:37 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int				ft_wcharcpy(char *dst, wchar_t uni);
 void			*ft_memset(void *ptr, int c, size_t size);
 void			*ft_memalloc(size_t size);
 void			*ft_memcpy(void *dst, const void *src, size_t size);
+void			*ft_memmove(void *dst, const void *src, size_t size);
+void			*ft_realloc(void *old_ptr, size_t old_size, size_t new_size);
 
 int				ft_iswhitespace(char c);
 
@@ -87,5 +89,7 @@ void			delete_buf(t_buf **buf);
 
 char			*do_conv(const char *format, size_t *idx, va_list *ap);
 
+void			padding_left(char **str, size_t len, char fill_with);
+void			padding_right(char **str, size_t len, char fill_with);
 
 #endif
