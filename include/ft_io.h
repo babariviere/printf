@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:25:03 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 09:19:13 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 09:37:35 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_IO_H
 
 # include <stdarg.h>
+# include <stdlib.h>
 # include <unistd.h>
 
 typedef enum	e_flag_len {
@@ -39,12 +40,11 @@ typedef struct	s_flags {
 
 typedef struct	s_conv_fn {
 	char	conv;
-	char	*(*fn)(void *elem, t_flags flags);
+	char	*(*fn)(va_list *ap, t_flags flags);
 }				t_conv_fn;
 
-char	*undefined_conv(void *elem, t_flags flags);
+char			*undefined_conv(char c);
 
-//SpdDioOuUxXcC
 const t_conv_fn	g_conv_fn[] = {
 	{'s', 0},
 	{'S', 0},
@@ -61,12 +61,29 @@ const t_conv_fn	g_conv_fn[] = {
 	{'c', 0},
 	{'C', 0},
 	{'b', 0},
-	{0, undefined_conv},
 };
 
-size_t	ft_strlen(char *s);
-int		ft_putchar(char c);
-int		ft_putstr(char *s);
-int		printf(const char *format, ...);
+size_t			ft_strlen(char *s);
+int				ft_putchar(char c);
+int				ft_putstr(char *s);
+
+void			ft_memset(void *ptr, char c, size_t size);
+void			*ft_memalloc(size_t size);
+
+typedef struct	s_buf {
+	char	*data;
+	size_t	len;
+	size_t	allocated;
+}				t_buf;
+
+t_buf			*create_buf(size_t to_allocate);
+void			buf_putc(t_buf *buf, char c);
+void			buf_putstr(t_buf *buf, char *s);
+void			buf_realloc(t_buf *buf, size_t new_size);
+void			delete_buf(t_buf **buf);
+
+char			*do_conv(const char *format, size_t *idx);
+
+int				printf(const char *format, ...);
 
 #endif

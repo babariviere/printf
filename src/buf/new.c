@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.c                                           :+:      :+:    :+:   */
+/*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/12 17:24:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 09:28:03 by briviere         ###   ########.fr       */
+/*   Created: 2018/02/13 09:35:33 by briviere          #+#    #+#             */
+/*   Updated: 2018/02/13 09:36:51 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_io.h"
 
-int		ft_printf(const char *format, ...)
+t_buf		*create_buf(size_t to_allocate)
 {
-	//va_list		vl;
-	char		*buf;
+	t_buf	*res;
 
-	buf = 0;
-	return (0);
+	if ((res = ft_memalloc(sizeof(t_buf))) == 0)
+		return (0);
+	if ((res->data = ft_memalloc(sizeof(char *) * to_allocate)) == 0)
+	{
+		free(res);
+		return (0);
+	}
+	res->allocated = to_allocate;
+	res->len = 0;
+	return (res);
 }
