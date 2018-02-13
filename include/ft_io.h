@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:25:03 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 09:46:21 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 10:41:28 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,13 @@ typedef struct	s_conv_fn {
 
 char			*undefined_conv(char c);
 
-const t_conv_fn	g_conv_fn[] = {
-	{'s', 0},
-	{'S', 0},
-	{'p', 0},
-	{'d', 0},
-	{'D', 0},
-	{'i', 0},
-	{'o', 0},
-	{'O', 0},
-	{'u', 0},
-	{'U', 0},
-	{'x', 0},
-	{'X', 0},
-	{'c', 0},
-	{'C', 0},
-	{'b', 0},
-};
 
 size_t			ft_strlen(char *s);
 int				ft_putchar(char c);
 int				ft_putstr(char *s);
 char			*ft_strncpy(char *dst, const char *src, size_t n);
 
-void			ft_memset(void *ptr, char c, size_t size);
+void			*ft_memset(void *ptr, int c, size_t size);
 void			*ft_memalloc(size_t size);
 void			*ft_memcpy(void *dst, const void *src, size_t size);
 
@@ -86,6 +69,5 @@ void			delete_buf(t_buf **buf);
 
 char			*do_conv(const char *format, size_t *idx);
 
-int				printf(const char *format, ...);
 
 #endif

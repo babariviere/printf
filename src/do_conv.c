@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   do_conv.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 14:38:38 by briviere          #+#    #+#             */
-/*   Updated: 2017/11/13 10:20:33 by briviere         ###   ########.fr       */
+/*   Created: 2018/02/13 10:30:05 by briviere          #+#    #+#             */
+/*   Updated: 2018/02/13 10:41:42 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_str.h"
+#include "ft_io.h"
 
-char	*ft_strncpy(char *dst, const char *src, size_t len)
+const t_conv_fn	g_conv_fn[] = {
+	{'s', 0},
+	{'S', 0},
+	{'p', 0},
+	{'d', 0},
+	{'D', 0},
+	{'i', 0},
+	{'o', 0},
+	{'O', 0},
+	{'u', 0},
+	{'U', 0},
+	{'x', 0},
+	{'X', 0},
+	{'c', 0},
+	{'C', 0},
+	{'b', 0},
+};
+
+char		*do_conv(const char *format, size_t *idx)
 {
-	size_t	idx;
-
-	idx = 0;
-	while (src[idx] && idx < len)
-	{
-		dst[idx] = src[idx];
-		idx++;
-	}
-	while (idx < len)
-		dst[idx++] = 0;
-	return (dst);
+	(void)format;
+	(*idx)++;
+	return (0);
 }

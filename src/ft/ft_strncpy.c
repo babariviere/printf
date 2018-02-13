@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 17:18:13 by briviere          #+#    #+#             */
-/*   Updated: 2017/11/08 09:46:51 by briviere         ###   ########.fr       */
+/*   Created: 2017/11/07 14:38:38 by briviere          #+#    #+#             */
+/*   Updated: 2018/02/13 10:40:09 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_mem.h"
+#include "ft_io.h"
 
-void	*ft_memalloc(size_t size)
+char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
-	void	*dst;
+	size_t	idx;
 
-	if ((dst = malloc(size)) == 0)
-		return (0);
-	ft_bzero(dst, size);
+	idx = 0;
+	while (src[idx] && idx < len)
+	{
+		dst[idx] = src[idx];
+		idx++;
+	}
+	while (idx < len)
+		dst[idx++] = 0;
 	return (dst);
 }

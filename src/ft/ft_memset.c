@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.c                                           :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/12 17:24:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 10:34:03 by briviere         ###   ########.fr       */
+/*   Created: 2017/11/06 16:34:43 by briviere          #+#    #+#             */
+/*   Updated: 2018/02/13 10:40:24 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_io.h"
 
-int		ft_printf(const char *format, ...)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	//va_list		vl;
-	t_buf		*buf;
-	char		*tmp;
-	size_t		idx;
-	int			res;
+	unsigned char	*ptr;
+	unsigned char	byte;
 
-	(void)format;
-	buf = create_buf(1024);
-	idx = 0;
-	while (format[idx] != 0)
-	{
-		if (format[idx] == '%')
-		{
-			tmp = do_conv(format, &idx);
-			buf_putstr(buf, tmp);
-			free(tmp);
-		}
-		else
-			buf_putc(buf, format[idx++]);
-	}
-	res = write(1, buf->data, buf->len);
-	delete_buf(&buf);
-	return (res);
+	byte = c;
+	ptr = b;
+	while (len--)
+		*(ptr++) = byte;
+	return (b);
 }

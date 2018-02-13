@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 10:57:48 by briviere          #+#    #+#             */
-/*   Updated: 2017/11/07 11:04:34 by briviere         ###   ########.fr       */
+/*   Created: 2017/11/07 17:18:13 by briviere          #+#    #+#             */
+/*   Updated: 2018/02/13 10:39:45 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_mem.h"
+#include "ft_io.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memalloc(size_t size)
 {
-	size_t		idx;
-	char		*dst_ptr;
-	const char	*src_ptr;
+	void	*dst;
 
-	idx = 0;
-	dst_ptr = dst;
-	src_ptr = src;
-	while (idx < n)
-	{
-		dst_ptr[idx] = src_ptr[idx];
-		idx++;
-	}
+	if ((dst = malloc(size)) == 0)
+		return (0);
+	ft_memset(dst, 0, size);
 	return (dst);
 }

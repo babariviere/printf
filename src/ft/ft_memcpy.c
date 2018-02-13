@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/06 16:34:43 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/06 19:23:59 by briviere         ###   ########.fr       */
+/*   Created: 2017/11/07 10:57:48 by briviere          #+#    #+#             */
+/*   Updated: 2018/02/13 10:39:59 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_mem.h"
-#include <stdio.h>
+#include "ft_io.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	unsigned char	*ptr;
-	unsigned char	byte;
+	size_t		idx;
+	char		*dst_ptr;
+	const char	*src_ptr;
 
-	byte = c;
-	ptr = b;
-	while (len--)
-		*(ptr++) = byte;
-	return (b);
+	idx = 0;
+	dst_ptr = dst;
+	src_ptr = src;
+	while (idx < n)
+	{
+		dst_ptr[idx] = src_ptr[idx];
+		idx++;
+	}
+	return (dst);
 }
