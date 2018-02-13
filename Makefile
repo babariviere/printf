@@ -1,6 +1,6 @@
 NAME=libftprintf.a
 
-CONV_NAME=undefined.c s.c upper_s.c
+CONV_NAME=undefined.c s.c upper_s.c upper_u.c
 BUF_NAME=new.c del.c realloc.c putc.c putstr.c
 FT_NAME=ft_memalloc.c ft_memcpy.c ft_strlen.c\
 		ft_strncpy.c ft_memset.c ft_strncpy.c\
@@ -15,7 +15,7 @@ SRC=$(addprefix src/, $(SRC_NAME))
 OBJ=$(patsubst src/%.c, obj/%.o, $(SRC))
 
 CC=clang
-CFLAGS=-Wall -Werror -Wextra -Iinclude
+CFLAGS=-Wall -Werror -Wextra -Iinclude -g
 
 all: $(NAME)
 

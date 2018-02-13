@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 11:06:15 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 12:34:11 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 12:47:39 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,7 @@ static size_t	wchar_len_char(wchar_t *s)
 	return (len);
 }
 
-int		ft_wcharcpy(char *dst, wchar_t uni)
-{
-	if (uni <= 0x7f)
-	{
-		dst[0] = uni;
-		return (1);
-	}
-	else if (uni <= 0x7ff)
-	{
-		dst[1] = ((uni & 0b00111111) | 0b10000000);
-		dst[0] = ((uni & (0b00011111 << 6)) >> 6 | 0b11000000);
-		return (2);
-	}
-	else if (uni <= 0xffff)
-	{
-		dst[2] = ((uni & 0b00111111) | 0b10000000);
-		dst[1] = ((uni & (0b00111111 << 6)) >> 6 | 0b10000000);
-		dst[0] = ((uni & (0b00001111 << 12)) >> 12 | 0b11100000);
-		return (3);
-	}
-	dst[3] = ((uni & 0b00111111) | 0b10000000);
-	dst[2] = ((uni & (0b00111111 << 6)) >> 6 | 0b10000000);
-	dst[1] = ((uni & (0b00111111 << 12)) >> 12 | 0b10000000);
-	dst[0] = ((uni & (0b00000111 << 18)) >> 18 | 0b11110000);
-	return (4);
-}
-
-int		size_wchar(wchar_t uni)
+int				size_wchar(wchar_t uni)
 {
 	if (uni <= 0x7f)
 		return (1);

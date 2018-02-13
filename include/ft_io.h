@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:25:03 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 12:28:16 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 13:18:11 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ typedef enum	e_flag_len {
 }				t_flag_len;
 
 typedef struct	s_flags {
-	char		alter_form : 1;
-	char		zero_pad : 1;
-	char		neg_field : 1;
-	char		blank_pos : 1;
-	char		sign : 1;
+	int			alter_form : 1;
+	int			zero_pad : 1;
+	int			neg_field : 1;
+	int			blank_pos : 1;
+	int			sign : 1;
 	int			width;
 	int			precision;
 	t_flag_len	len;
@@ -50,6 +50,7 @@ typedef struct	s_conv_fn {
 
 char			*conv_s(va_list *ap, t_flags flags);
 char			*conv_upper_s(va_list *ap, t_flags flags);
+char			*conv_upper_u(va_list *ap, t_flags flags);
 
 char			*undefined_conv(char c);
 
@@ -61,6 +62,7 @@ char			*ft_strndup(const char *s, size_t len);
 int				ft_putchar(char c);
 int				ft_putstr(char *s);
 char			*ft_strncpy(char *dst, const char *src, size_t n);
+int				ft_wcharcpy(char *dst, wchar_t uni);
 
 void			*ft_memset(void *ptr, int c, size_t size);
 void			*ft_memalloc(size_t size);

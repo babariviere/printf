@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 10:30:05 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 12:28:31 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 12:45:44 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ const t_conv_fn	g_conv_fn[] = {
 	{'o', 0},
 	{'O', 0},
 	{'u', 0},
-	{'U', 0},
+	{'U', conv_upper_u},
 	{'x', 0},
 	{'X', 0},
 	{'c', 0},
@@ -46,6 +46,21 @@ static char		*apply_conv(char c, va_list *ap, t_flags flags)
 	return (undefined_conv(c));
 }
 
+static int		read_precision(const char *format, size_t *idx, va_list *ap)
+{
+	int		prec;
+
+	*idx += 1;
+	if (format[*idx] == '*')
+	{
+		*idx += 1;
+		return (va_arg(*ap, int));
+	}
+	prec = ft_atoi(format + *idx);
+	*idx += ft_numlen(prec);
+	return (prec);
+}
+
 static t_flags	read_flags(const char *format, size_t *idx, va_list *ap)
 {
 	t_flags		flags;
@@ -66,19 +81,7 @@ static t_flags	read_flags(const char *format, size_t *idx, va_list *ap)
 		*idx += ft_numlen(flags.width);
 	}
 	if (format[*idx] == '.')
-	{
-		*idx += 1;
-		if (format[*idx] == '*')
-		{
-			*idx += 1;
-			flags.precision = va_arg(*ap, int);
-		}
-		else
-		{
-			flags.precision = ft_atoi(format + *idx);
-			*idx += ft_numlen(flags.precision);
-		}
-	}
+		flags.precision = read_precision(format, idx, ap);
 	if (is_flag_len(format[*idx]))
 		*idx += set_flag_len(&flags, format + *idx);
 	return (flags);
@@ -90,11 +93,11 @@ char			*do_conv(const char *format, size_t *idx, va_list *ap)
 	t_flags		flags;
 
 	res = 0;
-	flags = read_flags(format, idx, ap);
 	if (format[*idx] == '%')
-		res = ft_strdup("%");
-	else
-		res = apply_conv(format[*idx], ap, flags);
+		return (ft_strdup("%"));
+	flags = read_flags(format, idx, ap);
+	res = apply_conv(format[*idx], ap, flags);
+	// TODO: manage zero pad and neg_field here
 	(*idx)++;
 	return (res);
 }
