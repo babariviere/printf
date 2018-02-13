@@ -1,7 +1,7 @@
 NAME=libftprintf.a
 
 CONV_NAME=undefined.c # s.c
-BUF_NAME=# new
+BUF_NAME=new.c delete.c realloc.c putc.c putstr.c
 SRC_NAME=printf.c $(addprefix conv/, $(CONV_NAME))\
 		 $(addprefix buf/, $(BUF_NAME))
 SRC=$(addprefix src/, $(SRC_NAME))

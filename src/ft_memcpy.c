@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putc.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/13 09:39:23 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 09:47:38 by briviere         ###   ########.fr       */
+/*   Created: 2017/11/07 10:57:48 by briviere          #+#    #+#             */
+/*   Updated: 2017/11/07 11:04:34 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_io.h"
+#include "ft_mem.h"
 
-void	buf_putc(t_buf *buf, char c)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	if (buf->allocated <= (buf->len + 1))
-		buf_realloc(buf, buf->allocated * 2);
-	buf->data[buf->len++] = c;
+	size_t		idx;
+	char		*dst_ptr;
+	const char	*src_ptr;
+
+	idx = 0;
+	dst_ptr = dst;
+	src_ptr = src;
+	while (idx < n)
+	{
+		dst_ptr[idx] = src_ptr[idx];
+		idx++;
+	}
+	return (dst);
 }

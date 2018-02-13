@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putc.c                                             :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/13 09:39:23 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 09:47:38 by briviere         ###   ########.fr       */
+/*   Created: 2017/11/07 14:38:38 by briviere          #+#    #+#             */
+/*   Updated: 2017/11/13 10:20:33 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_io.h"
+#include "ft_str.h"
 
-void	buf_putc(t_buf *buf, char c)
+char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
-	if (buf->allocated <= (buf->len + 1))
-		buf_realloc(buf, buf->allocated * 2);
-	buf->data[buf->len++] = c;
+	size_t	idx;
+
+	idx = 0;
+	while (src[idx] && idx < len)
+	{
+		dst[idx] = src[idx];
+		idx++;
+	}
+	while (idx < len)
+		dst[idx++] = 0;
+	return (dst);
 }

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:25:03 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 09:42:41 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 09:46:21 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char			*ft_strncpy(char *dst, const char *src, size_t n);
 
 void			ft_memset(void *ptr, char c, size_t size);
 void			*ft_memalloc(size_t size);
+void			*ft_memcpy(void *dst, const void *src, size_t size);
 
 typedef struct	s_buf {
 	char	*data;
