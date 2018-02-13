@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 10:34:27 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 11:38:33 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 12:34:58 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,14 @@ int		main(void)
 
 	setlocale(LC_ALL, "");
 	TEST("%s %s", "test1", "test2");
+	TEST("%.10s", "hello");
+	TEST("%.10s", "hello wonderful world");
+	TEST("%.0s", "hello wonderful world");
 	TEST("%S", L"bonjour ❤️ 😎 🤗");
+	//TEST("%.11S", L"bonjour ❤️ 😎 🤗");
+	//TEST("%.12S", L"bonjour ❤️ 😎 🤗");
+	//TEST("%.13S", L"bonjour ❤️ 😎 🤗");
+	//TEST("%.14S", L"bonjour ❤️ 😎 🤗");
 	TEST("%.*U", 10, 124098);
 	TEST("%#X", 0xdeadbeef);
 	TEST("%#x", 0xcafebabe);

@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:25:03 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 11:55:15 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 12:28:16 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # include <unistd.h>
 
 typedef enum	e_flag_len {
+	FLAG_NONE = 0,
 	FLAG_HH,
 	FLAG_H,
 	FLAG_L,
 	FLAG_LL,
 	FLAG_J,
 	FLAG_Z,
-	FLAG_NONE,
 }				t_flag_len;
 
 typedef struct	s_flags {
@@ -33,10 +33,15 @@ typedef struct	s_flags {
 	char		neg_field : 1;
 	char		blank_pos : 1;
 	char		sign : 1;
-	char		width;
-	char		precision;
+	int			width;
+	int			precision;
 	t_flag_len	len;
 }				t_flags;
+
+int			is_flag(char c);
+void		set_flag(t_flags *flags, char c);
+int			is_flag_len(char c);
+int			set_flag_len(t_flags *flags, const char *s);
 
 typedef struct	s_conv_fn {
 	char	conv;
@@ -52,6 +57,7 @@ char			*undefined_conv(char c);
 char			*ft_strnew(size_t len);
 size_t			ft_strlen(const char *s);
 char			*ft_strdup(const char *s);
+char			*ft_strndup(const char *s, size_t len);
 int				ft_putchar(char c);
 int				ft_putstr(char *s);
 char			*ft_strncpy(char *dst, const char *src, size_t n);
@@ -59,6 +65,11 @@ char			*ft_strncpy(char *dst, const char *src, size_t n);
 void			*ft_memset(void *ptr, int c, size_t size);
 void			*ft_memalloc(size_t size);
 void			*ft_memcpy(void *dst, const void *src, size_t size);
+
+int				ft_iswhitespace(char c);
+
+size_t			ft_numlen(int n);
+int				ft_atoi(const char *str);
 
 typedef struct	s_buf {
 	char	*data;

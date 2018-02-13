@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 11:06:15 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 11:55:18 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 12:34:11 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,17 @@ int		ft_wcharcpy(char *dst, wchar_t uni)
 	return (4);
 }
 
+int		size_wchar(wchar_t uni)
+{
+	if (uni <= 0x7f)
+		return (1);
+	else if (uni <= 0x7ff)
+		return (2);
+	else if (uni <= 0xffff)
+		return (3);
+	return (4);
+}
+
 char			*conv_upper_s(va_list *ap, t_flags flags)
 {
 	wchar_t		*str;
@@ -71,12 +82,15 @@ char			*conv_upper_s(va_list *ap, t_flags flags)
 
 	(void)flags;
 	str = va_arg(*ap, wchar_t *);
-	len = wchar_len_char(str);
+	if (flags.precision >= 0)
+		len = flags.precision;
+	else
+		len = wchar_len_char(str);
 	if ((res = ft_strnew(len)) == 0)
 		return (0);
 	sidx = 0;
 	idx = 0;
-	while (idx < len)
+	while ((sidx + size_wchar(str[idx]) - 1) < len)
 		sidx += ft_wcharcpy(res + sidx, str[idx++]);
 	return (res);
 }

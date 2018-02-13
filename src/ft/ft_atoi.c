@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s.c                                                :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/13 11:04:00 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 12:28:58 by briviere         ###   ########.fr       */
+/*   Created: 2017/11/07 15:57:42 by briviere          #+#    #+#             */
+/*   Updated: 2018/02/13 12:06:53 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_io.h"
 
-char	*conv_s(va_list *ap, t_flags flags)
+int		ft_atoi(const char *str)
 {
-	if (flags.len == FLAG_L)
-		return (conv_upper_s(ap, flags));
-	if (flags.precision >= 0)
-		return (ft_strndup(va_arg(*ap, char *), flags.precision));
-	return (ft_strdup(va_arg(*ap, char *)));
+	int		result;
+	int		sign;
+
+	result = 0;
+	sign = 1;
+	while (ft_iswhitespace(*str))
+		str++;
+	if (*str == '-')
+		sign = -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
+	{
+		result *= 10;
+		result += *str - '0';
+		str++;
+	}
+	return (result * sign);
 }
