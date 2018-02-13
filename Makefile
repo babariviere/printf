@@ -1,9 +1,11 @@
 NAME=libftprintf.a
 
-CONV_NAME=undefined.c # s.c
+CONV_NAME=undefined.c s.c upper_s.c
 BUF_NAME=new.c del.c realloc.c putc.c putstr.c
 FT_NAME=ft_memalloc.c ft_memcpy.c ft_strlen.c\
-		ft_strncpy.c ft_memset.c ft_strncpy.c
+		ft_strncpy.c ft_memset.c ft_strncpy.c\
+		ft_strdup.c ft_putchar.c ft_putstr.c\
+		ft_strnew.c ft_wcharcpy.c
 SRC_NAME=printf.c do_conv.c\
 		 $(addprefix conv/, $(CONV_NAME))\
 		 $(addprefix buf/, $(BUF_NAME))\

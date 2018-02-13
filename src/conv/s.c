@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   s.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/13 09:19:44 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 10:47:24 by briviere         ###   ########.fr       */
+/*   Created: 2018/02/13 11:04:00 by briviere          #+#    #+#             */
+/*   Updated: 2018/02/13 11:55:49 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_io.h"
 
-size_t		ft_strlen(const char *s)
+char	*conv_s(va_list *ap, t_flags flags)
 {
-	size_t		len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
+	if (flags.len == FLAG_L)
+		return (conv_upper_s(ap, flags));
+	return (ft_strdup(va_arg(*ap, char *)));
 }

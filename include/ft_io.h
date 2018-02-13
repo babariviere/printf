@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:25:03 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 10:41:28 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/13 11:55:15 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct	s_flags {
 	char		neg_field : 1;
 	char		blank_pos : 1;
 	char		sign : 1;
+	char		width;
 	char		precision;
-	char		min_width;
 	t_flag_len	len;
 }				t_flags;
 
@@ -43,10 +43,15 @@ typedef struct	s_conv_fn {
 	char	*(*fn)(va_list *ap, t_flags flags);
 }				t_conv_fn;
 
+char			*conv_s(va_list *ap, t_flags flags);
+char			*conv_upper_s(va_list *ap, t_flags flags);
+
 char			*undefined_conv(char c);
 
 
-size_t			ft_strlen(char *s);
+char			*ft_strnew(size_t len);
+size_t			ft_strlen(const char *s);
+char			*ft_strdup(const char *s);
 int				ft_putchar(char c);
 int				ft_putstr(char *s);
 char			*ft_strncpy(char *dst, const char *src, size_t n);
@@ -67,7 +72,7 @@ void			buf_putstr(t_buf *buf, char *s);
 void			buf_realloc(t_buf *buf, size_t new_size);
 void			delete_buf(t_buf **buf);
 
-char			*do_conv(const char *format, size_t *idx);
+char			*do_conv(const char *format, size_t *idx, va_list *ap);
 
 
 #endif

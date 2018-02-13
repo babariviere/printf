@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.c                                           :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/12 17:24:22 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 10:50:55 by briviere         ###   ########.fr       */
+/*   Created: 2017/11/07 14:32:25 by briviere          #+#    #+#             */
+/*   Updated: 2018/02/13 10:47:09 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_io.h"
 
-int		ft_printf(const char *format, ...)
+char	*ft_strdup(const char *s1)
 {
-	va_list		ap;
-	t_buf		*buf;
-	char		*tmp;
-	size_t		idx;
-	int			res;
+	char	*dst;
+	size_t	idx;
+	size_t	len;
 
-	va_start(ap, format);
-	buf = create_buf(1024);
+	len = ft_strlen(s1);
+	if ((dst = malloc(sizeof(char) * len + 1)) == 0)
+		return (0);
 	idx = 0;
-	while (format[idx] != 0)
+	while (idx <= len)
 	{
-		if (format[idx] == '%')
-		{
-			idx++;
-			tmp = do_conv(format, &idx, &ap);
-			buf_putstr(buf, tmp);
-			free(tmp);
-		}
-		else
-			buf_putc(buf, format[idx++]);
+		dst[idx] = s1[idx];
+		idx++;
 	}
-	res = write(1, buf->data, buf->len);
-	delete_buf(&buf);
-	va_end(ap);
-	return (res);
+	return (dst);
 }

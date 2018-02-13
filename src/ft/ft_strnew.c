@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/13 09:19:44 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 10:47:24 by briviere         ###   ########.fr       */
+/*   Created: 2017/11/08 09:35:51 by briviere          #+#    #+#             */
+/*   Updated: 2018/02/13 11:34:18 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_io.h"
 
-size_t		ft_strlen(const char *s)
+char	*ft_strnew(size_t size)
 {
-	size_t		len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
+	return (ft_memalloc(size + 1));
 }
