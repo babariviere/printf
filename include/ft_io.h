@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:25:03 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/14 16:20:59 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/14 18:27:01 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ typedef struct	s_flags {
 	t_flag_len		len;
 }				t_flags;
 
-int			is_flag(char c);
-void		set_flag(t_flags *flags, char c);
-int			is_flag_len(char c);
-int			set_flag_len(t_flags *flags, const char *s);
+int				is_flag(char c);
+void			set_flag(t_flags *flags, char c);
+int				is_flag_len(char c);
+int				set_flag_len(t_flags *flags, const char *s);
 
-void		apply_flags_pad_int(char **res, size_t len, t_flags flags, char s);
-void		apply_flags_pad_int_base(char **res, size_t len, t_flags flags,
+void			apply_flags_pad_int(char **res, size_t len, t_flags flags,
+		char s);
+void			apply_flags_pad_int_base(char **res, size_t len, t_flags flags,
 		char base_chr);
 
 typedef struct	s_conv_fn {
