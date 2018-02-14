@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 09:28:13 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/14 18:16:48 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/14 18:25:24 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static unsigned long long	conv_o_cast(unsigned long long val, t_flag_len len)
 	return (casted);
 }
 
-char	*conv_o(va_list *ap, t_flags flags)
+char						*conv_o(va_list *ap, t_flags flags)
 {
 	char		*res;
 	size_t		len;

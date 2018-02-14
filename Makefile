@@ -1,6 +1,6 @@
 NAME=libftprintf.a
 
-CONV_NAME=undefined.c s.c upper_s.c upper_u.c\
+CONV_NAME=s.c upper_s.c upper_u.c\
 		  ll_base.c upper_x.c x.c d.c flags_pad.c\
 		  o.c p.c u.c upper_o.c upper_d.c c.c upper_c.c\
 		  b.c
