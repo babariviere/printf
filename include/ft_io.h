@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:25:03 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 14:31:24 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/14 16:20:59 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ typedef enum	e_flag_len {
 }				t_flag_len;
 
 typedef struct	s_flags {
-	int			alter_form : 1;
-	int			zero_pad : 1;
-	int			neg_field : 1;
-	int			blank_pos : 1;
-	int			sign : 1;
-	int			width;
-	int			precision;
-	t_flag_len	len;
+	unsigned int	alter_form : 1;
+	unsigned int	zero_pad : 1;
+	unsigned int	neg_field : 1;
+	unsigned int	blank_pos : 1;
+	unsigned int	sign : 1;
+	int				width;
+	int				precision;
+	t_flag_len		len;
 }				t_flags;
 
 int			is_flag(char c);
@@ -43,13 +43,26 @@ void		set_flag(t_flags *flags, char c);
 int			is_flag_len(char c);
 int			set_flag_len(t_flags *flags, const char *s);
 
+void		apply_flags_pad_int(char **res, size_t len, t_flags flags, char s);
+void		apply_flags_pad_int_base(char **res, size_t len, t_flags flags,
+		char base_chr);
+
 typedef struct	s_conv_fn {
 	char	conv;
 	char	*(*fn)(va_list *ap, t_flags flags);
 }				t_conv_fn;
 
+char			*conv_b(va_list *ap, t_flags flags);
+char			*conv_c(va_list *ap, t_flags flags);
+char			*conv_d(va_list *ap, t_flags flags);
+char			*conv_o(va_list *ap, t_flags flags);
+char			*conv_p(va_list *ap, t_flags flags);
 char			*conv_s(va_list *ap, t_flags flags);
+char			*conv_u(va_list *ap, t_flags flags);
 char			*conv_x(va_list *ap, t_flags flags);
+char			*conv_upper_c(va_list *ap, t_flags flags);
+char			*conv_upper_d(va_list *ap, t_flags flags);
+char			*conv_upper_o(va_list *ap, t_flags flags);
 char			*conv_upper_s(va_list *ap, t_flags flags);
 char			*conv_upper_u(va_list *ap, t_flags flags);
 char			*conv_upper_x(va_list *ap, t_flags flags);
@@ -61,10 +74,7 @@ typedef struct	s_base {
 	size_t	len;
 }				t_base;
 
-size_t			ft_itoa_len_base(unsigned int val, int base);
-void			ft_itoa_base(unsigned int val, char *buf, char *base);
-size_t			ft_litoa_len_base(unsigned long int val, int base);
-void			ft_litoa_base(unsigned long int val, char *buf, char *base);
+char			*ft_lltoa_base(unsigned long long unb_ptr, char *base);
 
 char			*ft_strnew(size_t len);
 size_t			ft_strlen(const char *s);

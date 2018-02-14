@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 10:30:05 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 14:31:17 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/14 18:21:45 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 const t_conv_fn	g_conv_fn[] = {
 	{'s', conv_s},
 	{'S', conv_upper_s},
-	{'p', 0},
-	{'d', 0},
-	{'D', 0},
-	{'i', 0},
-	{'o', 0},
-	{'O', 0},
-	{'u', 0},
+	{'p', conv_p},
+	{'d', conv_d},
+	{'D', conv_upper_d},
+	{'i', conv_d},
+	{'o', conv_o},
+	{'O', conv_upper_o},
+	{'u', conv_u},
 	{'U', conv_upper_u},
 	{'x', conv_x},
 	{'X', conv_upper_x},
-	{'c', 0},
-	{'C', 0},
-	{'b', 0},
+	{'c', conv_c},
+	{'C', conv_upper_c},
+	{'b', conv_b},
 };
 
-static char		*apply_conv(char c, va_list *ap, t_flags flags)
+static char		*apply_conv(char c, size_t *i, va_list *ap, t_flags flags)
 {
 	size_t	idx;
 
@@ -38,24 +38,26 @@ static char		*apply_conv(char c, va_list *ap, t_flags flags)
 	while (idx < (sizeof(g_conv_fn) / sizeof(g_conv_fn[0])))
 	{
 		if (g_conv_fn[idx].conv == c && g_conv_fn[idx].fn)
+		{
+			*i += 1;
 			return (g_conv_fn[idx].fn(ap, flags));
-		else if (g_conv_fn[idx].conv == c)
-			break ;
+		}
 		idx++;
 	}
-	return (undefined_conv(c));
+	return (0);
 }
 
-static int		read_precision(const char *format, size_t *idx, va_list *ap)
+static int		read_arg_int(const char *format, size_t *idx, va_list *ap)
 {
 	int		prec;
 
-	*idx += 1;
 	if (format[*idx] == '*')
 	{
 		*idx += 1;
 		return (va_arg(*ap, int));
 	}
+	if (format[*idx] < '0' || format[*idx] > '9')
+		return (0);
 	prec = ft_atoi(format + *idx);
 	*idx += ft_numlen(prec);
 	return (prec);
@@ -68,20 +70,20 @@ static t_flags	read_flags(const char *format, size_t *idx, va_list *ap)
 	ft_memset(&flags, 0, sizeof(t_flags));
 	flags.width = -1;
 	flags.precision = -1;
-	// TODO: split code
-	// TODO: $
 	while (is_flag(format[*idx]))
 	{
 		set_flag(&flags, format[*idx]);
 		(*idx)++;
 	}
-	if (format[*idx] >= '0' && format[*idx] <= '9')
-	{
-		flags.width = ft_atoi(format + *idx);
-		*idx += ft_numlen(flags.width);
-	}
+	if ((format[*idx] >= '0' && format[*idx] <= '9') || format[*idx] == '*')
+		flags.width = read_arg_int(format, idx, ap);
 	if (format[*idx] == '.')
-		flags.precision = read_precision(format, idx, ap);
+	{
+		(*idx)++;
+		flags.precision = read_arg_int(format, idx, ap);
+		if (flags.precision > 0)
+			flags.zero_pad = 0;
+	}
 	if (is_flag_len(format[*idx]))
 		*idx += set_flag_len(&flags, format + *idx);
 	return (flags);
@@ -93,11 +95,19 @@ char			*do_conv(const char *format, size_t *idx, va_list *ap)
 	t_flags		flags;
 
 	res = 0;
-	if (format[*idx] == '%')
-		return (ft_strdup("%"));
 	flags = read_flags(format, idx, ap);
-	res = apply_conv(format[*idx], ap, flags);
-	// TODO: manage zero pad and neg_field here
-	(*idx)++;
+	if (format[*idx] == '%')
+	{
+		(*idx)++;
+		res = ft_strdup("%");
+		if (flags.width > 1 && flags.neg_field)
+			padding_right(&res, flags.width - 1, ' ');
+		else if (flags.width > 1 && flags.zero_pad)
+			padding_left(&res, flags.width - 1, '0');
+		else if (flags.width > 1)
+			padding_left(&res, flags.width - 1, ' ');
+		return (res);
+	}
+	res = apply_conv(format[*idx], idx, ap, flags);
 	return (res);
 }

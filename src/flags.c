@@ -6,7 +6,7 @@
 /*   By: briviere <briviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 12:00:26 by briviere          #+#    #+#             */
-/*   Updated: 2018/02/13 12:14:46 by briviere         ###   ########.fr       */
+/*   Updated: 2018/02/14 16:49:28 by briviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		is_flag(char c)
 	return (c == '-' || c == '+' || c == ' ' || c == '0' || c == '#');
 }
 
-void	set_flag(t_flags * flags, char c)
+void	set_flag(t_flags *flags, char c)
 {
 	if (c == '-')
 		flags->neg_field = 1;
@@ -47,7 +47,7 @@ int		set_flag_len(t_flags *flags, const char *s)
 		flags->len = FLAG_L;
 	else if (s[0] == 'h' && s[1] == 'h')
 	{
-		flags->len = FLAG_H;
+		flags->len = FLAG_HH;
 		return (2);
 	}
 	else if (s[0] == 'h')
