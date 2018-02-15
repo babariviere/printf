@@ -19,7 +19,7 @@ SRC=$(addprefix src/, $(SRC_NAME))
 OBJ=$(patsubst src/%.c, obj/%.o, $(SRC))
 
 CC=clang
-CFLAGS=-Wall -Werror -Wextra -Iinclude -g
+CFLAGS=-Wall -Werror -Wextra -Iinclude
 
 all: $(NAME)
 
